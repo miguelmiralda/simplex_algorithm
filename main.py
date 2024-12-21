@@ -2,7 +2,7 @@ import pygame
 import sys
 import pandas as pd
 import numpy as np
-from simplex_algorithm.dataframe import dataframe_creation
+from simplex_algorithm.dataframe import dataframe_creation #For some reason this import now isn't working! Gotta fix it
 
 display_result = False  # Flag to control result rendering
 df_columns = ""  # Store the DataFrame columns as a string
