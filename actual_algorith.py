@@ -44,13 +44,24 @@ class simplex_algorithm:
 
         array_with_index = result_df.reset_index().to_numpy()   #reset index to use np.where
   
-        Key_column = np.where(array_with_index[0,:] == Key_value)    # np.where works by finding the index of the key value in that row
+        Key_colum = np.where(array_with_index[0,:] == Key_value)    # np.where works by finding the index of the key value in that row
     
-        print(Key_column)
+        #print(Key_colum) Right now key_colum is a number!
 
-        #print(result_df)
-        return result_df
-        #algorithm(Dataframe_1)
+        inequality_column = array_with_index[:, -1:].astype(int).flatten()
+
+        key_column = array_with_index[:, Key_colum].astype(int).flatten() #I had to flaten it into a 1 by 4 matrix because one of them were in a wrong format, so this is my solution
+        
+        proportion_of_key_and_inequality = inequality_column / key_column
+
+        column_array_1 = proportion_of_key_and_inequality.reshape(-1, 1) #make it a column again
+
+        array_with_index_1 = np.column_stack((array_with_index, column_array_1)) #add this to the original numpy array
+        
+        a = array_with_index_1[:, -1:].min() #This line must be modified! rn it's only selecting the most negative value 0, i want values higher than 0!
+        print(a)
+        return array_with_index_1[:,-6:]
+        
 
 constrains_df_1 = pd.DataFrame({'x1': [1, 2,3,1],'x2': [4, 1, 5,3], "<=": [0,3,9,5]})
 constrains_df_2 = pd.DataFrame({'x1': [2, 3,4,2],'x2': [3, 0, 4,2], "<=": [0,3,9,5]}) #This one I made up, so idk if it can be maximized 
